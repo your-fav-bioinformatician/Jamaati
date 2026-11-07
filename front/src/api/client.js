@@ -1,10 +1,23 @@
-// Client for the FastAPI quiz endpoints in api/quiz.py.
+// Client for the FastAPI endpoints (api/*.py). Every request goes through here.
 //
-// In development, Vite proxies /api to the backend (see vite.config.js), so
-// the backend needs no CORS setup. For a deployed build, set VITE_API_BASE
-// to the backend URL, or serve both behind one origin.
+// VITE_API_BASE is the backend's URL (set on Railway). Vite inlines it at
+// build time, so it must be present when `npm run build` runs, not just at
+// start. The backend has to allow this frontend's origin (CORS_ORIGINS in
+// app/config.py).
+//
+// Unset, requests go to /api, which the Vite dev server proxies to a local
+// backend (see vite.config.js).
 
-const BASE = (import.meta.env.VITE_API_BASE ?? '/api').replace(/\/$/, '');
+/** The API base URL, with no trailing slash. A bare host gets https:// added. */
+function apiBase(raw) {
+  const value = (raw ?? '').trim().replace(/\/+$/, '');
+  if (!value) return '/api';
+  // Railway domain references (e.g. ${{backend.RAILWAY_PUBLIC_DOMAIN}}) have no scheme.
+  if (!/^https?:\/\//i.test(value) && !value.startsWith('/')) return `https://${value}`;
+  return value;
+}
+
+const BASE = apiBase(import.meta.env.VITE_API_BASE);
 
 // /init and the final ranking can be slow (eligibility filtering, ranking
 // over every major); answering is quick.

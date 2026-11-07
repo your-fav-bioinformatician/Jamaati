@@ -34,9 +34,17 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None]:
 
 app = FastAPI(title="Jaamati API", lifespan=lifespan)
 
-if config.CORS_ORIGINS:
-    app.add_middleware(CORSMiddleware, allow_origins=config.CORS_ORIGINS,
-                       allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
+# The frontend (front/) is deployed as its own Railway service, so the browser calls this
+# API cross-origin. Origins come from CORS_ORIGINS (see app/config.py).
+_cors_origins = (["*"] if "*" in config.CORS_ORIGINS
+                 else [*config.CORS_ORIGINS, *config.CORS_DEV_ORIGINS])
+app.add_middleware(CORSMiddleware,
+                   allow_origins=_cors_origins,
+                   allow_credentials=False,   # no cookies; required for "*"
+                   allow_methods=["GET", "POST", "OPTIONS"],
+                   allow_headers=["Content-Type", "Accept"],
+                   max_age=600)               # cache preflights for 10 min
+log.info("CORS allowed origins: %s", _cors_origins)
 
 app.include_router(quiz.router)
 app.include_router(articles.router)

@@ -12,9 +12,23 @@ REDIS_URL = os.getenv("REDIS_URL", "")
 PG_CONN_STR = os.getenv("PG_CONN_STR", "")
 PG_DB_NAME = os.getenv("PG_DB_NAME") or None   # None: use the database named in PG_CONN_STR
 
-# Browser origins allowed to call the API, comma-separated (e.g. the deployed frontend's URL).
-# Empty: no CORS headers, fine when the frontend is served from the same origin or a proxy.
-CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()]
+
+def _origin(value: str) -> str:
+    """An origin as browsers send it: scheme://host[:port], no trailing slash.
+    A bare host (e.g. a Railway domain reference) gets https://."""
+    value = value.strip().rstrip("/")
+    if value != "*" and "://" not in value:
+        value = f"https://{value}"
+    return value
+
+
+# Browser origins allowed to call the API, comma-separated: the deployed frontend's URL,
+# e.g. https://jamaati-front.up.railway.app. Unset or "*": any origin (the API uses no
+# cookies or auth headers, so this exposes nothing a non-browser client couldn't reach).
+# The Vite dev and preview servers are always allowed.
+CORS_ORIGINS = [_origin(o) for o in os.getenv("CORS_ORIGINS", "*").split(",") if o.strip()] or ["*"]
+CORS_DEV_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173",
+                    "http://localhost:4173", "http://127.0.0.1:4173"]
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 
