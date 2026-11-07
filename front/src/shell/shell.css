@@ -1,0 +1,52 @@
+.app-frame {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.2vw;
+  padding: 1.6vh 4vw;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-primary-25);
+  transition: background-color var(--duration-fast) ease;
+}
+
+.top-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 1.2vw;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.top-nav__spacer {
+  flex: 1;
+}
+
+.top-nav__lang {
+  padding: 1vh 1.6vw;
+}
+
+.nav-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* A screen centred in the space below the nav (Flutter's `Center`). */
+.screen-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+}

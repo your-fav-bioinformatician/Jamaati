@@ -1,0 +1,63 @@
+.loading__inner {
+  width: clamp(280px, 34vw, 480px);
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading__track {
+  width: clamp(200px, 34vw, 300px);
+  max-width: 100%;
+  display: flex; /* the fill starts at the inline start, so it mirrors in RTL */
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-primary-tint);
+}
+
+.loading__fill {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(to right, var(--color-accent), var(--color-secondary), var(--color-accent));
+}
+
+/* Shimmer: a 60%-wide highlight sweeping across the fill every 1.4 s. */
+.loading__fill::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 60%;
+  background: linear-gradient(to right, rgb(255 255 255 / 0), rgb(255 255 255 / 0.35), rgb(255 255 255 / 0));
+  animation: loading-shimmer 1.4s linear infinite;
+}
+
+/* 66.67% of the highlight's own width = 40% of the fill: start edge to end edge. */
+@keyframes loading-shimmer {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(66.67%);
+  }
+}
+
+[dir='rtl'] .loading__fill::after {
+  animation-name: loading-shimmer-rtl;
+}
+
+@keyframes loading-shimmer-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-66.67%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading__fill::after {
+    animation: none;
+  }
+}

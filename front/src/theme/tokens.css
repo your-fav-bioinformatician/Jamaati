@@ -1,0 +1,61 @@
+/*
+ * Design tokens, ported from lib/theme/colors.dart and lib/responsive.dart.
+ *
+ * Every module should style itself with these variables only (never raw hex),
+ * so it gets dark mode for free. The active palette is chosen by the
+ * `data-theme` attribute on <html>, which ThemeProvider manages.
+ *
+ * Naming vs. Flutter's AppColors:
+ *   AppColors.white -> --color-surface  (it's the card/panel colour, which
+ *                                        is no longer white in dark mode)
+ *   white text on an accent fill -> --color-on-accent
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #fbfefc;
+  --color-surface: #ffffff;
+  --color-primary: #628b98;
+  --color-primary-tint: #edf3f5;
+  --color-primary-25: rgb(98 139 152 / 0.25);
+  --color-accent: #035790;
+  --color-on-accent: #ffffff;
+  --color-secondary: #ead720;
+  --color-text: #030c06;
+
+  --shadow-soft: 0 6px 16px rgb(0 0 0 / 0.08);
+  --shadow-hover: 0 10px 24px rgb(0 0 0 / 0.12);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #0b1215;
+  --color-surface: #141d21;
+  --color-primary: #8db3bf;
+  --color-primary-tint: #1c2b31;
+  --color-primary-25: rgb(141 179 191 / 0.25);
+  --color-accent: #6fb6e8;
+  --color-on-accent: #04121d;
+  --color-secondary: #ead720;
+  --color-text: #e4ecee;
+
+  --shadow-soft: 0 6px 16px rgb(0 0 0 / 0.45);
+  --shadow-hover: 0 10px 24px rgb(0 0 0 / 0.55);
+}
+
+:root {
+  /* Shape tokens: same percentage-of-width + clamp as responsive.dart. */
+  --radius-panel: clamp(18px, 2.6vw, 30px);
+  --radius-card: clamp(14px, 2vw, 22px);
+  --radius-field: clamp(10px, 1.4vw, 16px);
+  --radius-chip: clamp(16px, 4vw, 28px);
+  --gap-pill: clamp(4px, 0.8vw, 10px);
+
+  --font-display: 'Lalezar', sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', sans-serif;
+
+  --duration-fast: 200ms;
+}

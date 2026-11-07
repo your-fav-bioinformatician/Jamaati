@@ -1,0 +1,20 @@
+[project]
+name = "jaamati-api"
+version = "0.1.0"
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["front", "lib"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RET", "T20"]
+ignore = [
+    "B008",   # FastAPI's Depends(...) in argument defaults is the intended pattern
+    "E501",   # long lines are left to the formatter
+    "RET503", # functions that end in fail() (NoReturn) need no explicit return
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "api", "engine", "helpers"]

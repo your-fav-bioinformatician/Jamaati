@@ -1,0 +1,64 @@
+.major-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.major-card__badge {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  padding: 0.6vh 1.8vw;
+  background: var(--color-secondary);
+  color: #030c06; /* dark text on yellow in both themes */
+  border-end-start-radius: var(--radius-field);
+}
+
+.major-card--featured .major-card__body {
+  padding-top: 3vh;
+}
+
+.major-card__body {
+  display: flex;
+  align-items: center;
+  gap: 1.8vw;
+}
+
+.major-card--featured .major-card__body {
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 1.6vh;
+}
+
+.major-card--featured .rank-badge {
+  align-self: center;
+}
+
+@media (min-width: 860px) {
+  .major-card--featured .major-card__body {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 2vw;
+  }
+}
+
+.major-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Position in the ranking. */
+.rank-badge {
+  flex: none;
+  width: clamp(56px, 6.5vw, 76px);
+  height: clamp(56px, 6.5vw, 76px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: clamp(4px, 0.5vw, 6px) solid var(--color-accent);
+  background: var(--color-primary-tint);
+}
+
+.rank-badge--large {
+  width: clamp(90px, 11vw, 130px);
+  height: clamp(90px, 11vw, 130px);
+}

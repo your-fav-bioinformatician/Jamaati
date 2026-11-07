@@ -1,0 +1,11 @@
+.results__empty {
+  padding: 6vh 0;
+  text-align: center;
+}
+
+.results__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6vw;
+}

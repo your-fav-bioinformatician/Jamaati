@@ -1,0 +1,244 @@
+.intake {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 3vh 4vw;
+}
+
+.intake__inner {
+  width: 100%;
+  max-width: clamp(320px, 78vw, 1120px);
+  display: grid;
+  gap: 2.4vh;
+  align-content: start;
+}
+
+@media (min-width: 860px) {
+  .intake__inner {
+    grid-template-columns: clamp(160px, 15vw, 240px) 1fr;
+    column-gap: 3.5vw;
+    align-items: start;
+  }
+}
+
+.intake__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intake__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8vh;
+}
+
+.intake__stack--loose {
+  gap: 2.2vh;
+}
+
+/* Two fields side by side on wide screens, stacked otherwise. */
+.intake__row {
+  display: grid;
+  gap: 1.8vh 2.4vw;
+}
+
+@media (min-width: 860px) {
+  .intake__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── gender segmented control ─────────────────────────────────────────── */
+.segmented {
+  display: flex;
+  padding: 4px;
+  border-radius: var(--radius-field);
+  background: var(--color-primary-tint);
+}
+
+.segmented__option {
+  flex: 1;
+  padding: 1.2vh 0;
+  border: none;
+  border-radius: calc(var(--radius-field) * 0.7);
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.segmented__option.is-selected {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.segmented__option:focus-visible,
+.intake__switch-row:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── "prefer close" card ──────────────────────────────────────────────── */
+.intake__close {
+  cursor: default;
+}
+
+.intake__switch-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2vw;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+/* ── tracks & priorities ──────────────────────────────────────────────── */
+.intake__tracks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6vw;
+}
+
+.intake__track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intake__priorities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6vh 1.6vw;
+}
+
+.intake__priority {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: clamp(150px, 22vh, 220px);
+}
+
+.intake__check {
+  position: absolute;
+  inset-block-end: 1.4vh;
+  inset-inline-end: 1.4vw;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 12px;
+}
+
+/* ── stepper: a column beside the card on wide screens, a row above it otherwise ── */
+.stepper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.stepper__item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stepper__item:last-child {
+  flex: none;
+}
+
+/* Connector to the next step. */
+.stepper__item:not(:last-child)::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  margin-inline: 1vw;
+  background: var(--color-primary-25);
+}
+
+.stepper__item.is-done::after {
+  background: var(--color-accent);
+}
+
+.stepper__label {
+  display: none;
+}
+
+.stepper__dot {
+  flex: none;
+  width: clamp(30px, 8vw, 40px);
+  height: clamp(30px, 8vw, 40px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+.stepper__item.is-active .stepper__dot {
+  background: var(--color-primary);
+  border: 2px solid var(--color-accent);
+  color: #ffffff;
+}
+
+.stepper__item.is-done .stepper__dot {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+@media (min-width: 860px) {
+  .stepper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stepper__item {
+    position: relative;
+    flex: none;
+    align-items: flex-start;
+    gap: 1.6vw;
+    padding-bottom: calc(6vh + 1vh);
+  }
+
+  .stepper__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* The connector becomes a vertical line under the dot. */
+  .stepper__item:not(:last-child)::after {
+    position: absolute;
+    inset-inline-start: calc(clamp(30px, 8vw, 40px) / 2 - 1px);
+    top: calc(clamp(30px, 8vw, 40px) + 0.5vh);
+    width: 2px;
+    height: 6vh;
+    margin: 0;
+  }
+
+  .stepper__label {
+    display: block;
+    padding-top: 0.8vh;
+  }
+}
+
+.intake__optional {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.intake__mbti-help a {
+  color: var(--color-accent);
+  font-weight: 600;
+}

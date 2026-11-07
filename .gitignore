@@ -1,0 +1,14 @@
+# secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# frontend
+front/node_modules/
+front/dist/
+
+# editors
+.vscode/

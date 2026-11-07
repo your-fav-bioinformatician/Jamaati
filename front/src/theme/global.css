@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+.material-symbols-rounded {
+  /* Keeps the icon box square and stops it inheriting text line-height. */
+  line-height: 1;
+  user-select: none;
+}
+
+/* Text from the backend can be in either language. Each paragraph picks its
+   own base direction (so an English description inside the Arabic UI keeps
+   its full stop at the end), while alignment still follows the page. */
+.bidi {
+  unicode-bidi: plaintext;
+}
+
+/* Readable by screen readers, invisible on screen. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

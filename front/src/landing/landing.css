@@ -1,0 +1,59 @@
+/* Layout for Landing.jsx. Colours come only from tokens.css variables. */
+
+.landing {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background: var(--color-bg);
+}
+
+.landing__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing__card {
+  width: 100%;
+  max-width: clamp(320px, 78vw, 600px);
+}
+
+.landing__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vh 3vw;
+}
+
+.landing-module {
+  width: 100%;
+  height: clamp(100px, 12vh, 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-primary-25);
+  border-radius: var(--radius-card);
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.landing-module.is-hovering {
+  background: var(--color-primary-tint);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.landing-module:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
